@@ -1,7 +1,7 @@
 import { useState } from 'react'
 // import Samridhi from './components/Samridhi'
-import Samridhi from './components/SAMRIDHI1'
-import Popup from './components/Popup'
+import Samridhi from './components/SAMRIDHI1.JSX'
+import Popup from './components/popup.jsx'
 
 function App() {
   const [count, setCount] = useState(0)
