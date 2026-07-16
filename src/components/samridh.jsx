@@ -1315,7 +1315,7 @@ const faqs = [
   { q:"What ID proof is required for selling gold?", a:"Any one valid photo ID: Aadhaar Card, Voter ID, Driving Licence, or Passport. PAN card is required for transactions of ₹2 lakh and above." },
   { q:"Will my ornaments get damaged during testing?", a:"No! We use XRF Karatmeter technology — completely non-destructive. Your jewellery stays untouched and intact throughout the entire process." },
   { q:"Can I sell gold without a hallmark?", a:"Yes. We accept gold without hallmarks. The value will be determined based on actual purity after testing with our Karatmeter machine." },
-  { q:"What are your working hours?", a:"We are open 7 days a week including Sundays, from 10:00 AM to 7:00 PM." },
+  { q:"What are your working hours?", a:"We are open 7 days a week including Sundays, from 10:00 AM to 7:30 PM." },
   { q:"What is the mode of payment?", a:"We offer instant payment via Cash, NEFT, or RTGS — whichever is most convenient for you. Payment is made immediately after you accept our offer." },
   { q:"Do you buy silver and diamonds too?", a:"Yes! We buy silver jewellery, diamond jewellery, and gold/silver coins in addition to gold jewellery." },
   { q:"How long does the entire process take?", a:"The complete process from testing to payment takes only 10–15 minutes. Fast, simple, and hassle-free." },
@@ -1631,7 +1631,7 @@ export default function SamridhiGold() {
               </p>
               <div className="loc-rows">
                 <div className="loc-row"><span className="icon">📞</span><p><strong>Call / WhatsApp:</strong> +91 9953211815</p></div>
-                <div className="loc-row"><span className="icon">🕐</span><p><strong>Hours:</strong> 10:00 AM – 7:00 PM, 7 Days a Week</p></div>
+                <div className="loc-row"><span className="icon">🕐</span><p><strong>Hours:</strong> 10:00 AM – 7:30 PM, 7 Days a Week</p></div>
                 <div className="loc-row"><span className="icon">📍</span><p><strong>Nearest Landmark:</strong> [Add landmark here]</p></div>
                 <div className="loc-row"><span className="icon">🚇</span><p><strong>Metro / Transport:</strong> [Nearest metro or bus stop]</p></div>
                 <div className="loc-row"><span className="icon">📧</span><p><strong>Email:</strong> samridhigold@gmail.com</p></div>
