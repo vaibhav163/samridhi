@@ -1008,6 +1008,25 @@
 //   );
 // }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 import { useState } from "react";
 import Banner1 from "../assets/ban1.png";
 import Chart from "../assets/sell-now-chart.png";
