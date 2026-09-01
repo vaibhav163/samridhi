@@ -1,0 +1,16 @@
+{
+	"folders": [
+		{
+			"name": "samridhi gold buyer",
+			"path": "."
+		},
+		{
+			"name": "images",
+			"path": "../Downloads/samridhi-gold-buyer-site_3/samridhi-site/images"
+		}
+	],
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "samridhi gold buyer",
+		"liveServer.settings.port": 5501
+	}
+}
