@@ -1,7 +1,7 @@
 // Samridhi Gold Buyer — shared site behaviour
-var EMAILJS_PUBLIC_KEY = 'HGs3FzQXGgwWUiYwe';
-var EMAILJS_SERVICE_ID = 'service_8nc78lg';
-var EMAILJS_TEMPLATE_ID = 'template_c2m2uqc';
+var EMAILJS_PUBLIC_KEY = 'xLfYDZXLlR6IeQ-C6';
+var EMAILJS_SERVICE_ID = 'service_fkmfynb';
+var EMAILJS_TEMPLATE_ID = 'template_bdjcyq6';
 
 document.addEventListener('DOMContentLoaded', function () {
   // Init EmailJS once
@@ -12,6 +12,21 @@ document.addEventListener('DOMContentLoaded', function () {
   function sendEnquiry(data, onOk, onErr) {
     if (!window.emailjs) { onErr('EmailJS not ready'); return; }
     window.emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, data).then(onOk).catch(onErr);
+  }
+
+  // Thank-you overlay — shown for 2 seconds after a successful form submit
+  function showThankYou(msg) {
+    var ty = document.getElementById('thankyou-overlay');
+    if (!ty) {
+      ty = document.createElement('div');
+      ty.id = 'thankyou-overlay';
+      ty.className = 'thankyou-overlay';
+      ty.innerHTML = '<div class="thankyou-card"><div class="ty-check">✓</div><h3>Thank You!</h3><p class="ty-msg"></p></div>';
+      document.body.appendChild(ty);
+    }
+    ty.querySelector('.ty-msg').textContent = msg || "We've received your details and will contact you shortly.";
+    ty.classList.add('show');
+    setTimeout(function () { ty.classList.remove('show'); }, 2000);
   }
 
   // Mobile menu toggle
@@ -58,9 +73,10 @@ document.addEventListener('DOMContentLoaded', function () {
       var item = heroForm.item.value;
       if (heroStatus) heroStatus.textContent = 'Sending…';
       sendEnquiry(
-        { name: name, mobile: phone, email: 'Not Provided', message: 'Wants to sell: ' + item },
+        { name: name, mobile: phone, email: 'Not Provided', message: 'Wants to sell: ' + item, from_name: name, phone: phone, item_to_sell: item },
         function () {
           if (heroStatus) heroStatus.textContent = '✅ Sent! Our team will call you shortly.';
+          showThankYou("We've got your details — our team will call you shortly.");
           window.open('https://wa.me/919953211815?text=Hi!%20I%20am%20' + encodeURIComponent(name) + '%20(' + encodeURIComponent(phone) + ').%20I%20want%20to%20sell%20' + encodeURIComponent(item) + '.', '_blank');
           heroForm.reset();
         },
@@ -107,9 +123,10 @@ document.addEventListener('DOMContentLoaded', function () {
         var phone = popupForm.phone.value;
         if (popupStatus) popupStatus.textContent = 'Sending…';
         sendEnquiry(
-          { name: name, mobile: phone, email: 'Not Provided', message: 'Homepage popup — free gold valuation request' },
+          { name: name, mobile: phone, email: 'Not Provided', message: 'Homepage popup — free gold valuation request', from_name: name, phone: phone, item_to_sell: 'Free Gold Valuation Request' },
           function () {
             if (popupStatus) popupStatus.textContent = '✅ Sent! Our team will contact you shortly.';
+            showThankYou("We've got your details — our team will contact you shortly.");
             window.open('https://wa.me/919953211815?text=Hi!%20I%20am%20' + encodeURIComponent(name) + '%20(' + encodeURIComponent(phone) + ').%20I%20want%20a%20free%20gold%20valuation.', '_blank');
             popupForm.reset();
             setTimeout(closePopup, 1500);
@@ -133,9 +150,10 @@ document.addEventListener('DOMContentLoaded', function () {
       var message = form.message.value;
       if (formStatus) formStatus.textContent = 'Sending…';
       sendEnquiry(
-        { name: name, mobile: phone, email: 'Not Provided', message: message },
+        { name: name, mobile: phone, email: 'Not Provided', message: message, from_name: name, phone: phone, item_to_sell: message || 'General Enquiry' },
         function () {
           if (formStatus) formStatus.textContent = '✅ Sent! Our team will contact you shortly.';
+          showThankYou("We've got your message — our team will contact you shortly.");
           form.reset();
         },
         function () {
