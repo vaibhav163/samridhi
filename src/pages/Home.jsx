@@ -2,6 +2,7 @@ import React from "react";
 import { PHONE, PHONE_D, EMAIL, HOURS_D, MAPS_URL, MAP_EMBED, ADDRESS_LINE } from "../config.js";
 import {
   HeroForm, TrustStrip, WhyUs, ProcessSteps, AreasSection, ServicesSection, FaqBlock,
+  SkeletonImg,
 } from "../components/Blocks.jsx";
 import { HOME_FAQS } from "../data/core.js";
 
@@ -77,7 +78,7 @@ export default function HomePage() {
           <h2 className="sec-title">Gold Rates Are Near Historic Highs</h2>
           <div className="sell-now-wrap">
             <div className="img-box">
-              <img src="/images/gold-rate-chart.jpg" alt="Gold rate trend — sell gold in Greater Noida West at high live rates" width="500" height="375" loading="lazy" />
+              <SkeletonImg className="skel-fill" src="/images/gold-rate-chart.webp" alt="Gold rate trend — sell gold in Greater Noida West at high live rates" width="500" height="375" />
             </div>
             <div>
               <p style={{ fontSize: "15px", color: "var(--gray)", lineHeight: "1.8" }}>

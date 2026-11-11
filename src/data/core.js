@@ -29,7 +29,7 @@ export const HOME_FAQS = CORE_FAQS.slice(0, 6);
 // Blog posts — content preserved from v2 (BLOGS in build.py), clean slugs.
 export const BLOGS = [
   {
-    slug: "blog-why-gold-prices-are-high", img: "/images/blog-1.jpg", cat: "Gold Buying Tips",
+    slug: "blog-why-gold-prices-are-high", img: "/images/blog-1.webp", cat: "Gold Buying Tips",
     date: "2026-10-12", read: "4 min read",
     title: "Why Gold Prices Are at an All-Time High | Samridhi Gold Buyers Blog",
     h1: "Why Gold Prices Are at an All-Time High",
@@ -44,7 +44,7 @@ export const BLOGS = [
     ],
   },
   {
-    slug: "blog-questions-before-selling-gold", img: "/images/blog-2.jpg", cat: "Selling Guide",
+    slug: "blog-questions-before-selling-gold", img: "/images/blog-2.webp", cat: "Selling Guide",
     date: "2026-10-20", read: "5 min read",
     title: "Top Questions to Ask Before Selling Your Gold | Samridhi Gold Buyers Blog",
     h1: "Top Questions to Ask Before Selling Your Gold Jewellery",
@@ -64,7 +64,7 @@ export const BLOGS = [
     ],
   },
   {
-    slug: "blog-best-value-selling-gold-greater-noida", img: "/images/blog-3.jpg", cat: "Greater Noida Guide",
+    slug: "blog-best-value-selling-gold-greater-noida", img: "/images/blog-3.webp", cat: "Greater Noida Guide",
     date: "2026-10-28", read: "5 min read",
     title: "How to Get the Best Value When Selling Gold in Greater Noida | Samridhi Blog",
     h1: "How to Get the Best Value When Selling Gold in Greater Noida",
@@ -83,7 +83,7 @@ export const BLOGS = [
     ],
   },
   {
-    slug: "blog-how-gold-price-is-calculated", img: "/images/blog-4.jpg", cat: "Selling Guide",
+    slug: "blog-how-gold-price-is-calculated", img: "/images/blog-4.webp", cat: "Selling Guide",
     date: "2026-11-04", read: "4 min read",
     title: "How Is the Price of Your Gold Calculated? | Samridhi Gold Buyers Blog",
     h1: "How Is the Price of Your Gold Calculated?",
@@ -100,7 +100,7 @@ export const BLOGS = [
     ],
   },
   {
-    slug: "blog-documents-needed-to-sell-gold", img: "/images/blog-5.jpg", cat: "Selling Guide",
+    slug: "blog-documents-needed-to-sell-gold", img: "/images/blog-5.webp", cat: "Selling Guide",
     date: "2026-11-08", read: "3 min read",
     title: "Documents Needed to Sell Gold in India | Samridhi Gold Buyers Blog",
     h1: "Documents Needed to Sell Gold in India",

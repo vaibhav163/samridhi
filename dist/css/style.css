@@ -1,7 +1,8 @@
 /* ==========================================================================
    Samridhi Gold Buyer — Global Stylesheet
    ========================================================================== */
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;900&family=Poppins:wght@300;400;500;600;700&display=swap');
+/* Fonts are loaded via <link> in the page head (preconnect + css2 stylesheet)
+   — no CSS @import, so first paint is not blocked on a serial fetch. */
 
 :root{
   --gold:#A9791C;
@@ -86,7 +87,14 @@ nav.site-nav{background:var(--bg);border-bottom:1px solid rgba(169,121,28,0.15);
 .trust-item .ti-num{font-family:'Playfair Display',serif;font-size:22px;font-weight:900;color:#fff;}
 .trust-item .ti-lbl{font-size:11px;font-weight:600;color:rgba(255,255,255,0.85);text-transform:uppercase;letter-spacing:0.5px;}
 @keyframes scroll{0%{transform:translateX(0);}100%{transform:translateX(-50%);}}
-@media (prefers-reduced-motion:reduce){.trust-track{animation:none;}}
+/* Reduced motion: stop the marquee, smooth scrolling and (nearly) all
+   transitions/animations — covers popup, thank-you overlay, toasts,
+   cookie banner/panel and skeleton shimmer too. */
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto;}
+  .trust-track{animation:none;}
+  *,*::before,*::after{animation-duration:0.01ms !important;animation-iteration-count:1 !important;transition-duration:0.01ms !important;scroll-behavior:auto !important;}
+}
 
 /* SECTIONS */
 .sec{padding:72px 20px;}
@@ -300,3 +308,67 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
 .blog-body h2{margin:26px 0 10px}
 .blog-body p{line-height:1.85;margin-bottom:14px;color:var(--gray)}
 .content-page table{margin-bottom:18px}
+
+/* ===== Feature pack (2026-11-11): skeletons, empty states, toasts, cookies ===== */
+
+/* Skeleton shimmer — shown by .skel-img until its <img> has loaded */
+.skel-img{position:relative;overflow:hidden;background:#EFE6CB;}
+.skel-img::after{content:'';position:absolute;inset:0;background:linear-gradient(100deg,rgba(255,255,255,0) 30%,rgba(255,255,255,0.55) 50%,rgba(255,255,255,0) 70%);background-size:200% 100%;animation:skel-shimmer 1.3s ease-in-out infinite;}
+.skel-img img{width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 0.3s ease;}
+.skel-img.loaded{background:transparent;}
+.skel-img.loaded::after{display:none;}
+.skel-img.loaded img{opacity:1;}
+.skel-img.skel-auto img{height:auto;}
+.skel-fill{width:100%;height:100%;}
+@keyframes skel-shimmer{0%{background-position:160% 0;}100%{background-position:-60% 0;}}
+
+/* Empty state — rendered in place of a list when the list is empty */
+.empty-state{max-width:520px;margin:34px auto 0;text-align:center;background:#fff;border:1px dashed rgba(169,121,28,0.45);border-radius:16px;padding:36px 28px;}
+.empty-state .empty-icon{font-size:38px;margin-bottom:12px;}
+.empty-state h3{font-size:18px;color:var(--dark);margin-bottom:8px;}
+.empty-state p{font-size:13.5px;color:var(--gray);line-height:1.7;}
+
+/* Toasts — created by showToast() in src/lib/toast.jsx */
+.toast-wrap{position:fixed;left:50%;transform:translateX(-50%);bottom:24px;z-index:2500;display:flex;flex-direction:column;align-items:center;gap:10px;width:min(480px,calc(100vw - 32px));pointer-events:none;}
+.toast{pointer-events:auto;display:flex;align-items:center;gap:10px;max-width:100%;background:var(--dark);color:#F7EFD2;font-size:14px;font-weight:500;line-height:1.45;padding:13px 18px;border-radius:12px;border:1px solid rgba(217,187,108,0.5);box-shadow:0 14px 40px rgba(33,27,14,0.35);cursor:pointer;animation:toast-in 0.3s ease;}
+.toast-success .toast-icon{color:#7ED492;font-weight:900;}
+.toast-error{border-color:rgba(220,80,60,0.65);}
+.toast-error .toast-icon{color:#FF9B8A;}
+.toast-out{opacity:0;transform:translateY(8px);transition:opacity 0.25s ease,transform 0.25s ease;}
+@keyframes toast-in{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:translateY(0);}}
+@media (max-width:768px){.toast-wrap{bottom:120px;}}
+
+/* Cookie consent banner + preferences panel (React: CookieConsent.jsx) */
+.cookie-banner{position:fixed;left:16px;right:16px;bottom:16px;z-index:1400;max-width:860px;margin:0 auto;background:#211B0E;color:#F3EDD8;border:1px solid rgba(217,187,108,0.45);border-radius:14px;padding:18px 20px;display:flex;align-items:center;gap:18px;box-shadow:0 18px 48px rgba(33,27,14,0.4);animation:toast-in 0.3s ease;}
+.cookie-text{font-size:13px;line-height:1.65;flex:1;}
+.cookie-text a{color:var(--gold-light);text-decoration:underline;}
+.cookie-btns{display:flex;align-items:center;gap:10px;flex-shrink:0;flex-wrap:wrap;}
+.cookie-btn{padding:10px 18px;font-size:13px;white-space:nowrap;}
+.cookie-btns .btn-outline{color:var(--gold-light);border-color:rgba(217,187,108,0.6);}
+.cookie-customise{background:none;border:none;color:#F3EDD8;font-size:13px;font-weight:600;text-decoration:underline;cursor:pointer;padding:8px 4px;font-family:'Poppins',sans-serif;}
+.cookie-overlay{position:fixed;inset:0;background:rgba(33,27,14,0.6);backdrop-filter:blur(3px);z-index:1500;display:flex;align-items:center;justify-content:center;padding:16px;}
+.cookie-panel{background:#fff;max-width:480px;width:100%;border-radius:16px;padding:28px;position:relative;box-shadow:0 24px 60px rgba(0,0,0,0.35);max-height:calc(100vh - 32px);overflow-y:auto;}
+.cookie-panel h3{font-size:21px;color:var(--dark);margin-bottom:8px;padding-right:32px;}
+.cookie-panel-desc{font-size:13px;color:var(--gray);line-height:1.65;margin-bottom:18px;}
+.cookie-close{position:absolute;top:12px;right:12px;background:rgba(169,121,28,0.12);border:none;color:var(--dark);width:30px;height:30px;border-radius:50%;font-size:18px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;}
+.cookie-row{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 0;border-top:1px solid rgba(169,121,28,0.18);}
+.cookie-row strong{font-size:14px;color:var(--dark);display:block;margin-bottom:3px;}
+.cookie-row p{font-size:12.5px;color:var(--gray);line-height:1.55;}
+.cookie-always{font-size:12px;font-weight:700;color:var(--gold);white-space:nowrap;}
+.cookie-switch{display:flex;align-items:center;gap:8px;cursor:pointer;flex-shrink:0;}
+.cookie-switch input{position:absolute;opacity:0;width:0;height:0;}
+.cookie-slider{width:42px;height:24px;border-radius:999px;background:#D8CFB4;position:relative;transition:background 0.2s;flex-shrink:0;}
+.cookie-slider::after{content:'';position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:50%;background:#fff;box-shadow:0 1px 4px rgba(0,0,0,0.25);transition:left 0.2s;}
+.cookie-switch input:checked + .cookie-slider{background:var(--gold);}
+.cookie-switch input:checked + .cookie-slider::after{left:21px;}
+.cookie-switch input:focus-visible + .cookie-slider{outline:2px solid var(--gold);outline-offset:2px;}
+.cookie-switch-lbl{font-size:12.5px;font-weight:600;color:var(--dark);min-width:24px;}
+.cookie-panel-btns{margin-top:20px;justify-content:flex-end;}
+.cookie-panel-btns .btn-outline{color:var(--gold);border-color:var(--gold);}
+.cookie-settings-link{background:none;border:none;color:rgba(33,27,14,0.55);font-size:12px;cursor:pointer;font-family:'Poppins',sans-serif;text-decoration:underline;padding:0;}
+.cookie-settings-link:hover{color:var(--gold);}
+@media (max-width:768px){
+  /* Keep the sticky call bar fully usable: the banner floats above it. */
+  .cookie-banner{bottom:64px;flex-direction:column;align-items:stretch;gap:12px;padding:16px;}
+  .cookie-btns{justify-content:flex-start;}
+}

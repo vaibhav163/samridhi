@@ -1,7 +1,45 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { PHONE, PHONE_D, WA, HOURS_D, AREAS, MAPS_URL } from "../config.js";
 import { CORE_FAQS } from "../data/core.js";
 import { makeSubmitHandler, EnquiryStatus } from "../lib/enquiry.jsx";
+
+// ---------- Skeleton image: shimmer placeholder until the img has loaded ----------
+// SSR renders the shimmer state; on the client the wrapper flips to .loaded
+// when the image fires onLoad (or is already complete from cache).
+export function SkeletonImg({ src, alt, className = "", style, eager = false, width, height }) {
+  const [loaded, setLoaded] = useState(false);
+  const ref = useRef(null);
+  useEffect(() => {
+    const im = ref.current;
+    if (im && im.complete && im.naturalWidth > 0) setLoaded(true);
+  }, []);
+  return (
+    <div className={`skel-img${loaded ? " loaded" : ""} ${className}`} style={style} aria-busy={!loaded}>
+      <img
+        ref={ref}
+        src={src}
+        alt={alt}
+        width={width}
+        height={height}
+        loading={eager ? "eager" : "lazy"}
+        decoding="async"
+        {...(eager ? { fetchpriority: "high" } : {})}
+        onLoad={() => setLoaded(true)}
+      />
+    </div>
+  );
+}
+
+// ---------- Empty state: shown instead of a blank area when a list is empty ----------
+export function EmptyState({ icon = "🔍", title = "Nothing here yet", text = "" }) {
+  return (
+    <div className="empty-state" role="status">
+      <div className="empty-icon" aria-hidden="true">{icon}</div>
+      <h3>{title}</h3>
+      {text ? <p>{text}</p> : null}
+    </div>
+  );
+}
 
 // ---------- Hero enquiry form (identical fields/ids to v2; submit wired in React) ----------
 export function HeroForm({ options } = {}) {
@@ -154,6 +192,9 @@ export function AreasSection({ title = "Sell Gold Near You — Areas We Serve" }
       <div className="ctr">
         <div className="eyebrow">Areas We Serve</div>
         <h2 className="sec-title">{title}</h2>
+        {AREAS.length === 0 ? (
+          <EmptyState icon="📍" title="Areas coming soon" text="We are expanding — call us to check if we serve your area." />
+        ) : (
         <div className="buy-cards">
           {AREAS.map(([u, n]) => (
             <div className="buy-card" key={u}>
@@ -166,6 +207,7 @@ export function AreasSection({ title = "Sell Gold Near You — Areas We Serve" }
             </div>
           ))}
         </div>
+        )}
       </div>
     </section>
   );
@@ -187,6 +229,9 @@ export function ServicesSection() {
       <div className="ctr">
         <div className="eyebrow">What We Buy</div>
         <h2 className="sec-title">Sell Gold, Silver, Diamonds &amp; Coins</h2>
+        {SERVICE_CARDS.length === 0 ? (
+          <EmptyState icon="🥇" title="Services coming soon" text="Call us — we buy gold, silver, diamonds and coins at our Gaur City Centre store." />
+        ) : (
         <div className="buy-cards">
           {SERVICE_CARDS.map(([u, icon, t, d]) => (
             <div className="buy-card" key={u}>
@@ -199,6 +244,7 @@ export function ServicesSection() {
             </div>
           ))}
         </div>
+        )}
       </div>
     </section>
   );

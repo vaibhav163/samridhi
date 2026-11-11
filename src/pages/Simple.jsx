@@ -3,6 +3,7 @@ import { PHONE, PHONE_D, WA, EMAIL, HOURS_D, MAPS_URL, MAP_EMBED, STREET, CITY, 
 import { makeSubmitHandler, EnquiryStatus } from "../lib/enquiry.jsx";
 import {
   Crumbs, FaqBlock, ProcessSteps, AreasSection, ServicesSection, WhyUs,
+  SkeletonImg, EmptyState,
 } from "../components/Blocks.jsx";
 import { CORE_FAQS } from "../data/core.js";
 
@@ -110,12 +111,12 @@ export function ProcessPage() {
 
 export function GalleryPage() {
   const items = [
-    ["/images/store-front.jpg", "Samridhi Gold Buyers store at Shop GF-04, Gaur City Centre, Greater Noida West", "Our store — Shop GF-04, Gaur City Centre, Gaur Chowk"],
-    ["/images/gallery1.jpg", "XRF Karatmeter purity testing for gold in Greater Noida West", "German XRF Karatmeter — purity tested live, zero damage"],
-    ["/images/gallery2.jpg", "Certified weighing of gold jewellery in front of the customer", "Certified weighing, done in front of you"],
-    ["/images/gallery3.jpg", "Instant cash, NEFT or RTGS payment for gold at Samridhi Gold Buyers", "Instant payment — cash, NEFT or RTGS"],
-    ["/images/gallery4.jpg", "Gaur City Centre, Greater Noida West — location of Samridhi Gold Buyers", "Easy to reach from Gaur City, Noida Extension & Crossing Republik"],
-    ["/images/hero-gold.jpg", "Sell gold, silver and diamonds in Greater Noida West — Sona Do, Paisa Lo", "Sona Do, Paisa Lo — sell gold, silver & diamonds"],
+    ["/images/store-front.webp", "Samridhi Gold Buyers store at Shop GF-04, Gaur City Centre, Greater Noida West", "Our store — Shop GF-04, Gaur City Centre, Gaur Chowk"],
+    ["/images/gallery1.webp", "XRF Karatmeter purity testing for gold in Greater Noida West", "German XRF Karatmeter — purity tested live, zero damage"],
+    ["/images/gallery2.webp", "Certified weighing of gold jewellery in front of the customer", "Certified weighing, done in front of you"],
+    ["/images/gallery3.webp", "Instant cash, NEFT or RTGS payment for gold at Samridhi Gold Buyers", "Instant payment — cash, NEFT or RTGS"],
+    ["/images/gallery4.webp", "Gaur City Centre, Greater Noida West — location of Samridhi Gold Buyers", "Easy to reach from Gaur City, Noida Extension & Crossing Republik"],
+    ["/images/hero-gold.webp", "Sell gold, silver and diamonds in Greater Noida West — Sona Do, Paisa Lo", "Sona Do, Paisa Lo — sell gold, silver & diamonds"],
   ];
   return (
     <section className="sec">
@@ -124,14 +125,18 @@ export function GalleryPage() {
         <div className="eyebrow">Our Store</div>
         <h1 className="sec-title">Inside Samridhi Gold Buyers, Gaur City Centre</h1>
         <p className="sec-desc">Walk in for free XRF testing and get cash for gold on the spot. Visit us at {STREET}, {CITY}.</p>
+        {items.length === 0 ? (
+          <EmptyState icon="🖼️" title="Photos coming soon" text="Store photos are on their way — visit us at Gaur City Centre to see the store in person." />
+        ) : (
         <div className="gallery-grid">
           {items.map(([src, alt, cap], i) => (
             <div className="gallery-item" key={i}>
-              <img src={src} alt={alt} loading="lazy" />
+              <SkeletonImg className="skel-fill" src={src} alt={alt} />
               <p>{cap}</p>
             </div>
           ))}
         </div>
+        )}
         <p className="sec-desc" style={{ marginTop: "18px" }}>
           Planning a visit? <a href={MAPS_URL} target="_blank" rel="noreferrer">Get directions on Google Maps →</a>
         </p>

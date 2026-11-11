@@ -2,6 +2,7 @@ import React from "react";
 import { PHONE, PHONE_D, WA, HOURS_D, MAPS_URL } from "../config.js";
 import {
   Crumbs, FaqBlock, ProcessSteps, AreasSection, ServicesSection, ServiceHero,
+  EmptyState,
 } from "./Blocks.jsx";
 
 // ---------- v2 service_page() layout ----------
@@ -69,11 +70,15 @@ export function AreaPage({ area, intro, neighbourhoods, reach, extraPara, faqs, 
         <div className="ctr">
           <div className="eyebrow">Neighbourhoods We Serve</div>
           <h2 className="sec-title">Customers Visit Us From Across {area}</h2>
-          <div className="chip-list">
-            {neighbourhoods.map((n) => (
-              <span className="chip" key={n}>{n}</span>
-            ))}
-          </div>
+          {neighbourhoods && neighbourhoods.length ? (
+            <div className="chip-list">
+              {neighbourhoods.map((n) => (
+                <span className="chip" key={n}>{n}</span>
+              ))}
+            </div>
+          ) : (
+            <EmptyState icon="📍" title="Serving the whole area" text={`Customers from across ${area} visit our Gaur City Centre store — walk in any day.`} />
+          )}
           <div className="content-page" style={{ marginTop: "26px" }}>
             <h2>How to Reach Our Store</h2>
             <p dangerouslySetInnerHTML={{ __html: reach }} />
@@ -172,6 +177,9 @@ export function GuidePage({
           <div className="ctr">
             <div className="eyebrow">Keep Exploring</div>
             <h2 className="sec-title">Related Pages</h2>
+            {related.length === 0 ? (
+              <EmptyState icon="➡️" title="More guides coming soon" text="Browse our services and areas pages from the menu above in the meantime." />
+            ) : (
             <div className="buy-cards">
               {related.map(([u, t, d]) => (
                 <div className="buy-card" key={u}>
@@ -184,6 +192,7 @@ export function GuidePage({
                 </div>
               ))}
             </div>
+            )}
           </div>
         </section>
       ) : null}

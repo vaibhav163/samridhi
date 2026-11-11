@@ -1,4 +1,5 @@
 import emailjs from "@emailjs/browser";
+import { showToast } from "./toast.jsx";
 
 // Same shared EmailJS account as the owner's other sites (Ace / Eldeco / ATS /
 // Samridhi static v2). Forms are wired here, inside React, so they work
@@ -88,10 +89,12 @@ export function makeSubmitHandler(getItem, setStatus, afterSuccess) {
       await sendEnquiry({ name, phone, item });
       setStatus({ state: "ok" });
       showThankYou("We've got your details — our team will call you shortly.");
+      showToast("Enquiry sent! Our team will call you shortly.", "success");
       form.reset();
       if (afterSuccess) afterSuccess();
     } catch (err) {
       setStatus({ state: "fail", name, phone, item });
+      showToast("Could not send online — tap the WhatsApp link below the form instead.", "error");
     }
   };
 }

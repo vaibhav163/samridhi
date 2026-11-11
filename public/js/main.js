@@ -17,6 +17,9 @@ document.addEventListener('DOMContentLoaded', function () {
   document.querySelectorAll('a[href*="wa.me"]').forEach(function (a) {
     a.addEventListener('click', function () { track('click_whatsapp', location.pathname); });
   });
+  document.querySelectorAll('a[href*="google.com/maps"], a[href*="maps.app.goo.gl"], a[href*="goo.gl/maps"]').forEach(function (a) {
+    a.addEventListener('click', function () { track('click_directions', location.pathname); });
+  });
 
   var hamburger = document.querySelector('.hamburger');
   var mobileMenu = document.querySelector('.mobile-menu');

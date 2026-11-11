@@ -4,6 +4,7 @@ import {
   SERVICES, AREAS, POPULAR,
 } from "../config.js";
 import { makeSubmitHandler, EnquiryStatus } from "../lib/enquiry.jsx";
+import CookieConsent from "./CookieConsent.jsx";
 
 // Topbar + nav (ids/classes identical to v2 so public/js/main.js works verbatim)
 export function Header() {
@@ -152,7 +153,16 @@ export function Footer() {
             <a href="/sitemap">Sitemap</a>
           </div>
         </div>
-        <div className="footer-bottom">© 2026 Samridhi Gold Buyers. All rights reserved. | {ADDRESS_LINE}</div>
+        <div className="footer-bottom">
+          <span>© 2026 Samridhi Gold Buyers. All rights reserved. | {ADDRESS_LINE}</span>
+          <button
+            type="button"
+            className="cookie-settings-link"
+            onClick={() => window.dispatchEvent(new CustomEvent("sgb-cookie-settings"))}
+          >
+            🍪 Cookie Settings
+          </button>
+        </div>
       </footer>
       <div className="floating">
         <a className="fab fab-wa" href={WA} target="_blank" rel="noreferrer" aria-label="Chat on WhatsApp">💬</a>
@@ -175,6 +185,7 @@ export default function Layout({ children, popup = false }) {
         {children}
       </main>
       <Footer />
+      <CookieConsent />
     </>
   );
 }

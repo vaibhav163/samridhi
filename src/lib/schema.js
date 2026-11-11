@@ -10,7 +10,7 @@ export function localBusiness() {
     name: NAME,
     url: DOMAIN + "/",
     logo: DOMAIN + "/images/icon-512.png",
-    image: DOMAIN + "/images/store-front.jpg",
+    image: DOMAIN + "/images/store-front.webp",
     telephone: PHONE,
     email: EMAIL,
     priceRange: "₹₹",
